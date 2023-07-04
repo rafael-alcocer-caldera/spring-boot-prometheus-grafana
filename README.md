@@ -198,12 +198,11 @@ ECLIPSE CONSOLE:
 - By default, a Spring Boot application exposes JVM and HTTP request metrics, among other things. 
 
 - The following link helped me to avoid errors because of MacOS:
-
-      - [localhost not working on Mac](https://stackoverflow.com/questions/45538299/localhost-not-working-in-docker-for-mac)
+[localhost not working on Mac](https://stackoverflow.com/questions/45538299/localhost-not-working-in-docker-for-mac)
 
 ## Bibliography
 
-- https://www.asserts.ai/blog/monitoring-springboot-applications-with-asserts/
+[Monitoring Springboot Applications with Prometheus and Asserts](https://www.asserts.ai/blog/monitoring-springboot-applications-with-asserts/)
 
 ## License
 
