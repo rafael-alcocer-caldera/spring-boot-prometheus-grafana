@@ -209,6 +209,15 @@ ECLIPSE CONSOLE:
 
     [Getting error "Get http://localhost:9443/metrics: dial tcp 127.0.0.1:9443: connect: connection refused"](https://stackoverflow.com/questions/54397463/getting-error-get-http-localhost9443-metrics-dial-tcp-127-0-0-19443-conne)
 
+- When you haven't started the Spring Boot application and so the Endpoint State is DOWN, looking at the Metrics Explorer you'll see a very few metrics:
+
+  ![Spring Boot application haven't started and Prometheus Endpoint State DOWN](images/23.png)
+  
+- When you started the Spring Boot application and so the Endpoint State is UP, looking at the Metrics Explorer you'll see all the metrics sent by Spring:
+
+  ![Spring Boot application started and Prometheus Endpoint State UP](images/24.png)
+
+
 ## Bibliography
 
 [Monitoring Springboot Applications with Prometheus and Asserts](https://www.asserts.ai/blog/monitoring-springboot-applications-with-asserts/)
