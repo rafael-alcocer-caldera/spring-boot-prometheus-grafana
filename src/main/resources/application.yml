@@ -1,0 +1,24 @@
+# https://www.asserts.ai/blog/monitoring-springboot-applications-with-asserts/
+#
+# Make sure the prometheus endpoint is enabled
+# If you hit the /actuator/prometheus endpoint of your web application, 
+# You will see a list of metrics like these:
+#
+# jvm_memory_used_bytes{area="heap",id="PS Survivor Space",} 2.012508E7
+# …
+# http_server_requests_seconds_count{exception="None",method="GET",outcome="SUCCESS",status="200",uri="/actuator/metrics",} 1.0
+# http_server_requests_seconds_sum{exception="None",method="GET",outcome="SUCCESS",status="200",uri="/actuator/metrics",} 0.084955379
+# …
+# http_client_requests_seconds_count{clientName="chief.tsdb.dev.asserts.ai",method="POST",outcome="SUCCESS",status="200",uri="/select/0/prometheus/api/v1/query",} 4785.0
+# http_client_requests_seconds_sum{clientName="chief.tsdb.dev.asserts.ai",method="POST",outcome="SUCCESS",status="200",uri="/select/0/prometheus/api/v1/query",} 238.762194814
+# …
+#
+# By default, a Springboot application exposes JVM and HTTP request metrics, among other things. 
+# Micrometer also provides annotations like @Timed and @Counted for you to monitor individual methods:
+# These annotations produce method_timed_seconds metrics as Prometheus summary metrics and optionally histogram metrics if we set histogram = true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - prometheus
