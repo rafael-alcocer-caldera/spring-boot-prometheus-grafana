@@ -25,8 +25,11 @@ services:
       - ./grafana/:/var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
-      # For Macos use the below instead of localhost
-      - GF_SERVER_DOMAIN=docker.for.mac.localhost
       #- GF_SERVER_DOMAIN=localhost
+      # For Macos M1 the below worked for me instead of localhost
+      #- GF_SERVER_DOMAIN=docker.for.mac.localhost
+      # For Macos M1, and Intel the below worked for me instead of localhost
+      - GF_SERVER_DOMAIN=host.docker.internal
+      
 
       

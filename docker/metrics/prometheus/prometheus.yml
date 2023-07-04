@@ -3,9 +3,11 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
     scrape_interval: 3s
     static_configs:
-      # For Macos use the below instead of localhost
-      - targets: ['docker.for.mac.localhost:8080']
       #- targets: ['localhost:8080']
+      # For Macos M1 the below worked for me instead of localhost
+      #- targets: ['docker.for.mac.localhost:8080']
+      # For Macos M1, and Intel the below worked for me instead of localhost
+      - targets: ['host.docker.internal:8080']
         labels:
           application: 'Spring Boot Prometheus Grafana'
     basic_auth:

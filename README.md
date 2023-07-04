@@ -27,9 +27,9 @@ I wanted to do a Spring Boot Application, that shows metrics using Prometheus an
 - If you have Prometheus and Grafana installed you need to run them.
 - Otherwise you need docker-compose installed so that you can run Prometheus and Grafana as docker containers.
 - If you are using MacOS uncomment the following from docker-compose.yml instead of localhost:
-      -  GF_SERVER_DOMAIN=docker.for.mac.localhost
-- If you are using Macos uncomment the following from prometheus.yml instead of localhost:
-      - targets: ['docker.for.mac.localhost:8080']
+      - GF_SERVER_DOMAIN=host.docker.internal
+- If you are using MacOS uncomment the following from prometheus.yml instead of localhost:
+      - targets: ['host.docker.internal:8080']
 
 ## Running the application
 
@@ -44,7 +44,7 @@ I wanted to do a Spring Boot Application, that shows metrics using Prometheus an
 
    ![Grafana folder](images/02.png)
    
-4. Open a browser and type: [http://docker.for.mac.localhost:9090](http://docker.for.mac.localhost:9090)
+4. Open a browser and type: [http://localhost:9090](http://localhost:9090)
 
    You should see something like this:
    ![Prometheus container](images/03.png)
@@ -59,7 +59,7 @@ I wanted to do a Spring Boot Application, that shows metrics using Prometheus an
    
    The Endpoint State is DOWN. Because we haven't started the Spring Boot application.
    
-7. Open a browser and type: [http://docker.for.mac.localhost:3000](http://docker.for.mac.localhost:3000)
+7. Open a browser and type: [http://localhost:3000](http://localhost:3000)
 
    You should see something like this:
    ![Grafana container](images/06.png)
@@ -94,7 +94,9 @@ I wanted to do a Spring Boot Application, that shows metrics using Prometheus an
 
    ![Prometheus Data source](images/12.png)
    
-13. Fill in the blank "Prometheus server URL" with `http://docker.for.mac.localhost:9090`
+13. Fill in the blank "Prometheus server URL" with `http://host.docker.internal:9090`
+    
+    ![Prometheus server URL](images/13.png)
     
 14. Go to the end of the page and click on "Save & test":
 
@@ -104,7 +106,7 @@ I wanted to do a Spring Boot Application, that shows metrics using Prometheus an
    
 15. Then you should see this:
 
-    ![Prometheus data source connected](images/13.png)
+    ![Prometheus data source connected](images/14.png)
 
     Successfully queried the Prometheus API.
     Next, you can start to visualize data by building a dashboard, or by querying data in the Explore view.
@@ -115,23 +117,27 @@ I wanted to do a Spring Boot Application, that shows metrics using Prometheus an
     
     Then in the right button click on New -> import
     
-    ![Grafana import](images/14.png)
+    ![Grafana import](images/15.png)
     
-    ![Grafana import dashboard](images/15.png)
+    ![Grafana import dashboard](images/16.png)
     
 17. Click on "Upload dashboard JSON file", and select the dashboard on `/spring-boot-prometheus-grafana/docker/metrics/grafana/dashboard/Spring Boot Statistics Dashboard.json`
 
 18 Then you should see this:
 
-   ![Grafana import dashboard json](images/16.png)
+   ![Grafana import dashboard json](images/17.png)
    
-19. Select Prometheus in he combo box, and click on Import button:
+19. Select the data source for this dashboard:
+
+   ![Grafana select data source](images/18.png)
+   
+20. Select Prometheus in he combo box, and click on Import button:
 
     You'll see empty graphs:
     
-    ![Grafana dashboard](images/17.png)
+    ![Grafana dashboard](images/19.png)
     
-20. Start the Spring Boot application, so that you can start seeing the metrics and to see the Prometheus Endpoint State to UP:
+21. Start the Spring Boot application, so that you can start seeing the metrics and to see the Prometheus Endpoint State to UP:
 
 ECLIPSE CONSOLE:
 ----------------
@@ -177,28 +183,31 @@ ECLIPSE CONSOLE:
 
 21. Refresh the browser where you have Prometheus:
 
-    [http://docker.for.mac.localhost:9090](http://docker.for.mac.localhost:9090)
+    [http://localhost:9090](http://localhost:9090)
 
-    ![Prometheus Endpoint State UP](images/18.png)
+    ![Prometheus Endpoint State UP](images/20.png)
 
 22. Refresh the browser wher you have Grafana: 
     
-    [http://docker.for.mac.localhost:3000/d/sOae4vCnk/spring-boot-statistics?orgId=1&refresh=5s](http://docker.for.mac.localhost:3000/d/sOae4vCnk/spring-boot-statistics?orgId=1&refresh=5s0)
+    [http://localhost:3000/d/sOae4vCnk/spring-boot-statistics?orgId=1&refresh=5s](http://localhost:3000/d/sOae4vCnk/spring-boot-statistics?orgId=1&refresh=5s0)
 
-    ![Grafana metrics shown](images/19.png)
+    ![Grafana metrics shown](images/21.png)
 
 23. Now that you have your application up and running, you can check the metrics sent to Prometheus:
 
-    [http://docker.for.mac.localhost:8080/actuator/prometheus](http://docker.for.mac.localhost:8080/actuator/prometheus)
+    [http://localhost:8080/actuator/prometheus](http://localhost:8080/actuator/prometheus)
 
-    ![Prometheus Endpoint State UP](images/20.png)
+    ![Prometheus Endpoint State UP](images/22.png)
 
 ## Notes
 
 - By default, a Spring Boot application exposes JVM and HTTP request metrics, among other things. 
 
-- The following link helped me to avoid errors because of MacOS:
-[localhost not working on Mac](https://stackoverflow.com/questions/45538299/localhost-not-working-in-docker-for-mac)
+- The following links helped me to avoid errors because of MacOS:
+
+    [localhost not working on Mac](https://stackoverflow.com/questions/45538299/localhost-not-working-in-docker-for-mac)
+
+    [Getting error "Get http://localhost:9443/metrics: dial tcp 127.0.0.1:9443: connect: connection refused"](https://stackoverflow.com/questions/54397463/getting-error-get-http-localhost9443-metrics-dial-tcp-127-0-0-19443-conne)
 
 ## Bibliography
 

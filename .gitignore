@@ -7,3 +7,4 @@
 .*DS_Store*
 /bin/
 .settings/org.eclipse.jdt.apt.core.prefs
+.settings/org.springframework.ide.eclipse.prefs
